@@ -8,9 +8,9 @@ function App() {
     <Router>
       <Routes>
         {/* 로그인 페이지 경로 설정 */}
-        <Route path="/" element={<Login />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/email" element={<Email />} />
+        <Route path="/admin" element={<Login />} />
+        <Route path="/admin/portfolio" element={<Portfolio />} />
+        <Route path="/admin/email" element={<Email />} />
       </Routes>
     </Router>
   );

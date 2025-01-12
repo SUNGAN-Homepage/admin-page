@@ -37,10 +37,11 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
           <Box sx={{ marginTop: 2 }}>
             <MenuItem
               onClick={() => {
-                navigate("/portfolio");
+                navigate("/admin/portfolio");
               }}
               sx={{
-                backgroundColor: pathname === "/portfolio" ? "#b5b5b5" : "none",
+                backgroundColor:
+                  pathname === "/admin/portfolio" ? "#b5b5b5" : "none",
               }}
             >
               <FilterIcon sx={{ marginRight: 1 }} />
@@ -48,10 +49,11 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/email");
+                navigate("/admin/email");
               }}
               sx={{
-                backgroundColor: pathname === "/email" ? "#b5b5b5" : "none",
+                backgroundColor:
+                  pathname === "/admin/email" ? "#b5b5b5" : "none",
               }}
             >
               <EmailIcon sx={{ marginRight: 1 }} />
@@ -68,7 +70,7 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
             marginX: 1,
             border: "1px solid #e4e4e7",
           }}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/admin")}
         >
           <LogoutIcon />
           로그아웃
