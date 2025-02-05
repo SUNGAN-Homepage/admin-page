@@ -9,7 +9,12 @@ import {
 import UploadIcon from "@mui/icons-material/Upload";
 import ClearIcon from "@mui/icons-material/Clear";
 import ButtonComponent from "../common/ButtonComponent";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "react-beautiful-dnd";
 
 interface ImageFile extends File {
   preview: string;
@@ -59,7 +64,7 @@ export function ImageUploader() {
   };
 
   // react-beautiful-dnd를 이용한 이미지 순서 재배열
-  const onDragEnd = (result: any) => {
+  const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     const reorderedImages = Array.from(images);
     const [removed] = reorderedImages.splice(result.source.index, 1);
