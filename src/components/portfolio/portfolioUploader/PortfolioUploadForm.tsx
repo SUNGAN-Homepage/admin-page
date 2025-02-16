@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, LinearProgress, TextField } from "@mui/material";
 import ButtonComponent from "../../common/ButtonComponent.tsx";
 import UploadIcon from "@mui/icons-material/Upload";
+
 interface ImageFile extends File {
   preview: string;
 }
@@ -49,7 +50,7 @@ function PortfolioUploadForm({ images, setImages }: ImageUploaderProps) {
           fullWidth
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="포트폴리오 제목"
+          placeholder={`제목`}
           required
           variant="outlined"
         />
@@ -60,7 +61,7 @@ function PortfolioUploadForm({ images, setImages }: ImageUploaderProps) {
           fullWidth
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="포트폴리오 설명"
+          placeholder="설명"
           sx={{ marginTop: 2 }}
         />
       </Box>

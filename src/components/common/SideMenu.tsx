@@ -38,15 +38,27 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
           <Box sx={{ marginTop: 2 }}>
             <MenuItem
               onClick={() => {
-                navigate("/admin/portfolio");
+                navigate("/admin/events");
               }}
               sx={{
                 backgroundColor:
-                  pathname === "/admin/portfolio" ? "#b5b5b5" : "none",
+                  pathname === "/admin/events" ? "#b5b5b5" : "none",
               }}
             >
               <FilterIcon sx={{ marginRight: 1 }} />
-              포트폴리오 관리
+              행사 이미지 관리
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/admin/profile");
+              }}
+              sx={{
+                backgroundColor:
+                  pathname === "/admin/profile" ? "#b5b5b5" : "none",
+              }}
+            >
+              <FilterIcon sx={{ marginRight: 1 }} />
+              프로필 이미지 관리
             </MenuItem>
             <MenuItem
               onClick={() => {

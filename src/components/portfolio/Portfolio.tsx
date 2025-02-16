@@ -1,13 +1,14 @@
 import SideMenu from "../common/SideMenu";
-import PortfolioList from "./PortfolioList/PortfolioList.tsx";
-import AddPortfolioComponent from "./portfolioUploader/AddPortfolioComponent.tsx";
+import PortfolioList from "./PortfolioList/PortfolioList";
+import AddPortfolioComponent from "./portfolioUploader/AddPortfolioComponent";
 import { useState } from "react";
 
-export default function Portfolio() {
+export default function Portfolio({ isEvents }: { isEvents: boolean }) {
   const [isActiveIdx, setIsActiveIdx] = useState<number | null>(null);
   return (
     <SideMenu>
       <AddPortfolioComponent
+        isEvents={isEvents}
         isActiveIdx={isActiveIdx}
         setIsActiveIdx={setIsActiveIdx}
       />

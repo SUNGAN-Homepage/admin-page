@@ -30,7 +30,7 @@ function PortfolioItem({
       if (isActiveIdx != null) {
         if (
           confirm(
-            "수정또는 추가중인 포트폴리오가 있습니다. 기존 창을 닫고 새로 여시겠습니까?",
+            "수정또는 추가중인 항목이 있습니다. 기존 창을 닫고 새로 여시겠습니까?",
           )
         ) {
           setIsActiveIdx(index);

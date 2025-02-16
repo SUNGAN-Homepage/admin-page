@@ -17,7 +17,7 @@ function Login() {
       setError("이메일과 비밀번호를 입력해주세요.");
     } else {
       setError("");
-      navigate("/admin/portfolio");
+      navigate("/admin/events");
       // 여기에 로그인 처리 로직 추가
     }
   };

@@ -10,7 +10,8 @@ function App() {
       <Routes>
         {/* 로그인 페이지 경로 설정 */}
         <Route path="/admin" element={<Login />} />
-        <Route path="/admin/portfolio" element={<Portfolio />} />
+        <Route path="/admin/events" element={<Portfolio isEvents={true} />} />
+        <Route path="/admin/profile" element={<Portfolio isEvents={false} />} />
         <Route path="/admin/email" element={<Email />} />
         <Route path="/admin/partner" element={<Partner />} />
       </Routes>
