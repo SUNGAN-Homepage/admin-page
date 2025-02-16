@@ -1,8 +1,9 @@
 import { ImageUploader } from "../../common/imageUploader/ImageUploader.tsx";
-import PortfolioUploadForm from "./PortfolioUploadForm.tsx";
+import PartnerUploadForm from "./PartnerUploadForm.tsx";
 import { useImageUploader } from "../../../hooks/useImageUploader.tsx";
 
-function PortfolioUploadComponent() {
+function PartnerUploadComponent() {
+  const isPartner = true;
   const {
     images,
     setImages,
@@ -12,7 +13,7 @@ function PortfolioUploadComponent() {
     handleDragEnd,
     handleDragOver,
     handleFileChange,
-  } = useImageUploader();
+  } = useImageUploader(isPartner);
   return (
     <ImageUploader
       images={images}
@@ -22,11 +23,11 @@ function PortfolioUploadComponent() {
       handleDragOver={handleDragOver}
       handleDragEnd={handleDragEnd}
       handleFileChange={handleFileChange}
-      isPartner={false}
+      isPartner={isPartner}
     >
-      <PortfolioUploadForm images={images} setImages={setImages} />
+      <PartnerUploadForm setImages={setImages} images={images} />
     </ImageUploader>
   );
 }
 
-export default PortfolioUploadComponent;
+export default PartnerUploadComponent;
