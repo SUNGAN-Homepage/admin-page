@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import FilterIcon from "@mui/icons-material/Filter";
 import EmailIcon from "@mui/icons-material/Email";
 import LogoutIcon from "@mui/icons-material/Logout";
+import HandshakeIcon from "@mui/icons-material/Handshake";
 interface SettingsProps {
   children: ReactNode; // children의 타입을 명시적으로 정의
 }
@@ -58,6 +59,18 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
             >
               <EmailIcon sx={{ marginRight: 1 }} />
               이메일 관리
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/admin/partner");
+              }}
+              sx={{
+                backgroundColor:
+                  pathname === "/admin/partner" ? "#b5b5b5" : "none",
+              }}
+            >
+              <HandshakeIcon sx={{ marginRight: 1 }} />
+              파트너 관리
             </MenuItem>
           </Box>
         </Box>
