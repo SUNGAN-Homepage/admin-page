@@ -14,6 +14,7 @@ import {
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 interface ImageFile extends File {
   preview: string;
@@ -28,7 +29,6 @@ interface ImageUploaderProps {
   handleDragEnd: (event: DragEndEvent) => void;
   children?: ReactNode;
   handleFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  isPartner: boolean;
 }
 
 export function ImageUploader({
@@ -39,7 +39,6 @@ export function ImageUploader({
   handleDragEnd,
   children,
   handleFileChange,
-  isPartner,
 }: ImageUploaderProps) {
   // 센서 설정 (마우스 및 키보드)
   const mouseSensor = useSensor(MouseSensor, {
@@ -47,6 +46,7 @@ export function ImageUploader({
   });
   const keyboardSensor = useSensor(KeyboardSensor);
   const sensors = useSensors(mouseSensor, keyboardSensor);
+  const location = useLocation().pathname;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -76,7 +76,7 @@ export function ImageUploader({
                   id="dropzone-file"
                   type="file"
                   accept="image/*"
-                  multiple={!isPartner}
+                  multiple={location === "/admin/events"}
                   onChange={handleFileChange}
                   style={{ display: "none" }}
                 />
@@ -95,45 +95,27 @@ export function ImageUploader({
               {children}
             </Box>
           </Box>
-
-          {isPartner
-            ? // 이미지 미리보기 및 순서 변경
-              images.length > 0 && (
-                <Box
-                  sx={{
-                    backgroundColor: "#f3f4f6",
-                  }}
-                >
-                  {images[0] && (
-                    <PartnerImage
-                      src={images[0].preview}
-                      alt={images[0].name}
-                    />
-                  )}
-                </Box>
-              )
-            : // 이미지 미리보기 및 순서 변경
-              images.length > 0 && (
-                <Box
-                  sx={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(5, 1fr)",
-                    gap: 2,
-                    p: 2,
-                    backgroundColor: "#f3f4f6",
-                  }}
-                >
-                  {images.map((image, index) => (
-                    <SortableImage
-                      key={image.name + index}
-                      id={image.name}
-                      src={image.preview}
-                      index={index}
-                      onRemove={() => removeImage(index)}
-                    />
-                  ))}
-                </Box>
-              )}
+          {images.length > 0 && (
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(5, 1fr)",
+                gap: 2,
+                p: 2,
+                backgroundColor: "#f3f4f6",
+              }}
+            >
+              {images.map((image, index) => (
+                <SortableImage
+                  key={image.name + index}
+                  id={image.name}
+                  src={image.preview}
+                  index={index}
+                  onRemove={() => removeImage(index)}
+                />
+              ))}
+            </Box>
+          )}
         </SortableContext>
       </DndContext>
     </Box>
@@ -143,7 +125,7 @@ export function ImageUploader({
 // 업로드 영역 스타일링
 const UploadArea = styled(Box)`
   flex: 0 0 40%;
-  height: 230px;
+  height: 250px;
   border: 2px dashed #ccc;
   background-color: #f7f7f7;
   cursor: pointer;
@@ -259,10 +241,4 @@ const StyledImage = styled.img<{ $isFirst: boolean }>`
   object-fit: cover;
   border-radius: 8px;
   cursor: pointer;
-`;
-
-const PartnerImage = styled.img`
-  width: 100%;
-  object-fit: cover;
-  border-radius: 12px;
 `;

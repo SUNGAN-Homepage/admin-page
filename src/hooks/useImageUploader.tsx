@@ -7,7 +7,7 @@ interface ImageFile extends File {
 }
 
 // 이미지 상태를 관리하는 커스텀 훅
-export function useImageUploader(isPartner: boolean = false) {
+export function useImageUploader(isEvents: boolean = false) {
   const [images, setImages] = useState<ImageFile[]>([]);
 
   // 이미지 추가
@@ -17,7 +17,7 @@ export function useImageUploader(isPartner: boolean = false) {
         preview: URL.createObjectURL(file),
       }),
     );
-    if (isPartner && images.length > 0) {
+    if (!isEvents && images.length > 0) {
       setImages(newImages);
       return;
     }

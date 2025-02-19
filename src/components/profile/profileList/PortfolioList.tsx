@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import PortfolioItem from "./PortfolioItem.tsx";
+import ProfileItem from "./ProfileItem.tsx";
 import { useEffect, useState } from "react";
 import DummyImg from "../../../assets/dummy.png";
 
@@ -31,7 +31,7 @@ function PortfolioList({
   return (
     <Box>
       {data.map((item: Item, index: number) => (
-        <PortfolioItem
+        <ProfileItem
           item={item}
           key={item.id}
           index={index}

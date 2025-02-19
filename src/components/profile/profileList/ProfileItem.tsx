@@ -1,7 +1,7 @@
 import { Box, Button, Card, CardContent, CardHeader } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { CreateOutlined } from "@mui/icons-material";
-import PortfolioUploadComponent from "../portfolioUploader/PortfolioUploadComponent.tsx";
+import ProfileUploadComponent from "../profileUploader/ProfileUploadComponent.tsx";
 
 interface Item {
   id: string;
@@ -10,7 +10,7 @@ interface Item {
   img: string; // 이미지 경로 또는 이미지 객체
 }
 
-function PortfolioItem({
+function ProfileItem({
   item,
   index,
   isActiveIdx,
@@ -67,11 +67,11 @@ function PortfolioItem({
       </Box>
       {isActiveIdx === index && (
         <Box sx={{ padding: 2 }}>
-          <PortfolioUploadComponent key={item.id} />
+          <ProfileUploadComponent key={item.id} />
         </Box>
       )}
     </Card>
   );
 }
 
-export default PortfolioItem;
+export default ProfileItem;

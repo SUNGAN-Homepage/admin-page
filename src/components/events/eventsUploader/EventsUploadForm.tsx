@@ -12,9 +12,10 @@ interface ImageUploaderProps {
   images: ImageFile[];
 }
 
-function PortfolioUploadForm({ images, setImages }: ImageUploaderProps) {
+function EventsUploadForm({ images, setImages }: ImageUploaderProps) {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [place, setPlace] = useState("");
+  const [date, setDate] = useState("");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -33,13 +34,13 @@ function PortfolioUploadForm({ images, setImages }: ImageUploaderProps) {
 
     setUploading(false);
     alert(
-      `이미지가 성공적으로 업로드되었습니다.\n제목: ${title}\n설명: ${description}\n업로드된 이미지 개수: ${images.length}`,
+      `이미지가 성공적으로 업로드되었습니다.\n제목: ${title}\nc: ${place}\n업로드된 이미지 개수: ${images.length}`,
     );
 
     // 상태 초기화
     setImages([]);
     setTitle("");
-    setDescription("");
+    setPlace("");
   };
   return (
     <div>
@@ -56,12 +57,20 @@ function PortfolioUploadForm({ images, setImages }: ImageUploaderProps) {
         />
         <TextField
           multiline
-          label="설명"
-          minRows={3}
+          label="장소"
           fullWidth
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="설명"
+          value={place}
+          onChange={(e) => setPlace(e.target.value)}
+          placeholder="장소"
+          sx={{ marginTop: 2 }}
+        />
+        <TextField
+          multiline
+          label="촬영 일시"
+          fullWidth
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          placeholder="촬영 일시"
           sx={{ marginTop: 2 }}
         />
       </Box>
@@ -89,4 +98,4 @@ function PortfolioUploadForm({ images, setImages }: ImageUploaderProps) {
   );
 }
 
-export default PortfolioUploadForm;
+export default EventsUploadForm;

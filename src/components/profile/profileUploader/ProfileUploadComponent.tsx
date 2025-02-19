@@ -1,9 +1,8 @@
 import { ImageUploader } from "../../common/imageUploader/ImageUploader.tsx";
-import PartnerUploadForm from "./PartnerUploadForm.tsx";
+import ProfileUploadForm from "./ProfileUploadForm.tsx";
 import { useImageUploader } from "../../../hooks/useImageUploader.tsx";
 
-function PartnerUploadComponent() {
-  const isEvents = false;
+function ProfileUploadComponent() {
   const {
     images,
     setImages,
@@ -13,7 +12,7 @@ function PartnerUploadComponent() {
     handleDragEnd,
     handleDragOver,
     handleFileChange,
-  } = useImageUploader(isEvents);
+  } = useImageUploader();
   return (
     <ImageUploader
       images={images}
@@ -24,9 +23,9 @@ function PartnerUploadComponent() {
       handleDragEnd={handleDragEnd}
       handleFileChange={handleFileChange}
     >
-      <PartnerUploadForm setImages={setImages} images={images} />
+      <ProfileUploadForm images={images} setImages={setImages} />
     </ImageUploader>
   );
 }
 
-export default PartnerUploadComponent;
+export default ProfileUploadComponent;
