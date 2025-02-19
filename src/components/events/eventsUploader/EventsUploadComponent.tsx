@@ -3,6 +3,7 @@ import EventsUploadForm from "./EventsUploadForm.tsx";
 import { useImageUploader } from "../../../hooks/useImageUploader.tsx";
 
 function EventsUploadComponent() {
+  const isEvents = true;
   const {
     images,
     setImages,
@@ -12,7 +13,8 @@ function EventsUploadComponent() {
     handleDragEnd,
     handleDragOver,
     handleFileChange,
-  } = useImageUploader();
+  } = useImageUploader(isEvents);
+
   return (
     <ImageUploader
       images={images}
@@ -22,6 +24,7 @@ function EventsUploadComponent() {
       handleDragOver={handleDragOver}
       handleDragEnd={handleDragEnd}
       handleFileChange={handleFileChange}
+      isEvents={isEvents}
     >
       <EventsUploadForm images={images} setImages={setImages} />
     </ImageUploader>

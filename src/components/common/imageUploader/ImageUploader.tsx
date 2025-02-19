@@ -29,6 +29,7 @@ interface ImageUploaderProps {
   handleDragEnd: (event: DragEndEvent) => void;
   children?: ReactNode;
   handleFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  isEvents?: boolean;
 }
 
 export function ImageUploader({
@@ -39,6 +40,7 @@ export function ImageUploader({
   handleDragEnd,
   children,
   handleFileChange,
+  isEvents,
 }: ImageUploaderProps) {
   // 센서 설정 (마우스 및 키보드)
   const mouseSensor = useSensor(MouseSensor, {
@@ -49,7 +51,7 @@ export function ImageUploader({
   const location = useLocation().pathname;
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <DndContext
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
@@ -62,7 +64,14 @@ export function ImageUploader({
               <label
                 htmlFor="dropzone-file"
                 style={{
+                  width: "100%",
+                  height: "100%",
                   cursor: "pointer",
+                  textAlign: "center",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
                 <UploadIcon sx={{ fontSize: 40, mb: 1 }} />
@@ -95,26 +104,54 @@ export function ImageUploader({
               {children}
             </Box>
           </Box>
-          {images.length > 0 && (
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateColumns: "repeat(5, 1fr)",
-                gap: 2,
-                p: 2,
-                backgroundColor: "#f3f4f6",
-              }}
-            >
-              {images.map((image, index) => (
-                <SortableImage
-                  key={image.name + index}
-                  id={image.name}
-                  src={image.preview}
-                  index={index}
-                  onRemove={() => removeImage(index)}
-                />
-              ))}
-            </Box>
+
+          {isEvents ? (
+            <>
+              {images.length > 0 && (
+                <Box
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(5, 1fr)",
+                    gap: 2,
+                    p: 2,
+                    backgroundColor: "#f3f4f6",
+                  }}
+                >
+                  {images.map((image, index) => (
+                    <SortableImage
+                      key={image.name + index}
+                      id={image.name}
+                      src={image.preview}
+                      index={index}
+                      onRemove={() => removeImage(index)}
+                    />
+                  ))}
+                </Box>
+              )}
+            </>
+          ) : (
+            <>
+              {images.length > 0 && (
+                <Box
+                  sx={{
+                    backgroundColor: "#f3f4f6",
+                    p: 2,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <img
+                    style={{
+                      margin: "auto",
+                    }}
+                    src={images[0].preview}
+                    alt={images[0].name}
+                    width={"500px"}
+                  />
+                </Box>
+              )}
+            </>
           )}
         </SortableContext>
       </DndContext>

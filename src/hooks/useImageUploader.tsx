@@ -34,8 +34,12 @@ export function useImageUploader(isEvents: boolean = false) {
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const files = Array.from(e.dataTransfer.files);
-    if (files.length > 0) {
+    if (isEvents && files.length > 0) {
       addImages(files);
+    } else if (!isEvents && files.length == 1) {
+      addImages(files);
+    } else {
+      alert("이미지를 한장만 업로드 할 수 있습니다. 다시 시도해주세요");
     }
   };
 
