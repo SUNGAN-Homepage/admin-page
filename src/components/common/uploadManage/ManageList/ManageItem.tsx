@@ -1,26 +1,40 @@
 import { Box, Button, Card, CardContent, CardHeader } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { CreateOutlined } from "@mui/icons-material";
-import ProfileUploadComponent from "../profileUploader/ProfileUploadComponent.tsx";
+import { useIsActiveIdx } from "../../../../context/IsActiveIdxContext.tsx";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-interface Item {
-  id: string;
+interface EventItem {
+  portfolioId: number;
+  description: string;
+  url: string[];
   title: string;
-  text: string;
-  img: string; // 이미지 경로 또는 이미지 객체
+  date: string;
 }
-
-function ProfileItem({
+interface PartnerItem {
+  partnerId: number;
+  url: string;
+  name: string;
+  address: string;
+}
+function ManageItem({
   item,
   index,
-  isActiveIdx,
-  setIsActiveIdx,
+  handleDelete,
+  children,
 }: {
-  item: Item;
+  item: EventItem | PartnerItem;
   index: number;
-  isActiveIdx: number | null;
-  setIsActiveIdx: (i: number | null) => void;
+  handleDelete: (id: number) => void;
+  children: React.ReactElement;
 }) {
+  const { isActiveIdx, setIsActiveIdx } = useIsActiveIdx();
+  const { pathname } = useLocation();
+  //컴포넌트를 공유해서 페이지가 바뀌면 닫아줘야함.
+  useEffect(() => {
+    setIsActiveIdx(null);
+  }, [pathname]);
   const handleCloseOpen = () => {
     //열려 있으면 닫기
     if (isActiveIdx === index) {
@@ -38,11 +52,22 @@ function ProfileItem({
       } else setIsActiveIdx(index);
     }
   };
+
+  const getImageUrl = (url: string | string[]) => {
+    return Array.isArray(url) ? url[0] : url;
+  };
   return (
     <Card sx={{ marginTop: "20px", marginBottom: "20px" }}>
-      <CardHeader title={item.title} subheader={item.text} />
+      <CardHeader
+        title={"portfolioId" in item ? item.title : item.name}
+        subheader={"portfolioId" in item ? item.description : item.address}
+      />
       <CardContent>
-        <img src={item.img} alt="Dummy" width="100%" />
+        <img
+          src={getImageUrl(item.url)}
+          alt={getImageUrl(item.url)}
+          width="100%"
+        />
       </CardContent>
       <Box
         sx={{
@@ -60,18 +85,18 @@ function ProfileItem({
           <CreateOutlined sx={{ marginRight: 1 }} />
           {isActiveIdx === index ? "수정 취소" : "수정"}
         </Button>
-        <Button variant="contained" color="error">
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => handleDelete(index)}
+        >
           <DeleteOutlineIcon sx={{ marginRight: 1 }} />
           삭제
         </Button>
       </Box>
-      {isActiveIdx === index && (
-        <Box sx={{ padding: 2 }}>
-          <ProfileUploadComponent key={item.id} />
-        </Box>
-      )}
+      {isActiveIdx === index && <Box sx={{ padding: 4 }}>{children}</Box>}
     </Card>
   );
 }
 
-export default ProfileItem;
+export default ManageItem;

@@ -11,8 +11,9 @@ interface SettingsProps {
   children: ReactNode; // children의 타입을 명시적으로 정의
 }
 const SideMenu: React.FC<SettingsProps> = ({ children }) => {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation(); // URL에서 `type` 가져오기
   const navigate = useNavigate();
+
   return (
     <Box>
       {/* 왼쪽 사이드 메뉴 (Drawer) */}
@@ -60,18 +61,7 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
               <FilterIcon sx={{ marginRight: 1 }} />
               프로필 이미지 관리
             </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/admin/email");
-              }}
-              sx={{
-                backgroundColor:
-                  pathname === "/admin/email" ? "#b5b5b5" : "none",
-              }}
-            >
-              <EmailIcon sx={{ marginRight: 1 }} />
-              이메일 관리
-            </MenuItem>
+
             <MenuItem
               onClick={() => {
                 navigate("/admin/partner");
@@ -83,6 +73,18 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
             >
               <HandshakeIcon sx={{ marginRight: 1 }} />
               파트너 관리
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/admin/email");
+              }}
+              sx={{
+                backgroundColor:
+                  pathname === "/admin/email" ? "#b5b5b5" : "none",
+              }}
+            >
+              <EmailIcon sx={{ marginRight: 1 }} />
+              이메일 관리
             </MenuItem>
           </Box>
         </Box>

@@ -3,22 +3,39 @@ import { TextField, Box, Typography, Container, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/SUNGAN.jpg";
 import ButtonComponent from "./common/ButtonComponent.tsx";
+import { useMutation } from "@tanstack/react-query";
+import Loading from "./common/Loading/Loading.tsx";
+import { loginRequest } from "../api/auth.tsx";
+
+// 로그인 요청 함수
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { mutate, status } = useMutation({
+    mutationFn: loginRequest, // 로그인 요청 함수
+    onSuccess: (data) => {
+      // 로그인 성공 시
+      localStorage.setItem("userId", email);
+      localStorage.setItem("token", data.token); // 토큰을 로컬 스토리지에 저장
+      navigate("/admin/events"); // 로그인 후 이동할 페이지
+    },
+    onError: (error) => {
+      // 로그인 실패 시
+      alert("로그인에 실패했습니다. 다시 시도해 주세요.");
+      console.error("로그인 실패:", error); // 콘솔에 에러 로그
+    },
+  });
 
-  // 로그인 버튼 클릭시
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email || !password) {
       setError("이메일과 비밀번호를 입력해주세요.");
     } else {
-      setError("");
-      navigate("/admin/events");
-      // 여기에 로그인 처리 로직 추가
+      setError(""); // 에러 메시지 초기화
+      mutate({ userId: email, password }); // mutate 호출하여 로그인 요청
     }
   };
 
@@ -102,6 +119,8 @@ function Login() {
           </form>
         </Box>
       </Box>
+      {status === "pending" && <Loading />}
+      {/* isLoading 대신 status 확인 */}
     </Container>
   );
 }

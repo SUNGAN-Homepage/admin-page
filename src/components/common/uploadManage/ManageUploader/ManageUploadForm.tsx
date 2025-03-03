@@ -1,47 +1,55 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, LinearProgress, TextField } from "@mui/material";
-import ButtonComponent from "../../common/ButtonComponent.tsx";
+import ButtonComponent from "../../ButtonComponent.tsx";
 import UploadIcon from "@mui/icons-material/Upload";
+import { useUpload } from "../../../../hooks/useUpload.tsx";
 
-interface ImageFile extends File {
-  preview: string;
+interface EventsUploadFormProps {
+  images: File[];
+  item?: {
+    portfolioId?: number;
+    url: string[];
+    title: string;
+    description: string;
+    date: string;
+  };
+  isEdit?: boolean;
 }
-
-interface ImageUploaderProps {
-  setImages: React.Dispatch<React.SetStateAction<ImageFile[]>>;
-  images: ImageFile[];
-}
-
-function EventsUploadForm({ images, setImages }: ImageUploaderProps) {
+function ManageUploadForm({ item, images, isEdit }: EventsUploadFormProps) {
   const [title, setTitle] = useState("");
   const [place, setPlace] = useState("");
   const [date, setDate] = useState("");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-
+  const { uploadEvent } = useUpload();
+  console.log(title);
   // 업로드 버튼 클릭 시 업로드 시뮬레이션 후 초기화
+  console.log("image", images[0]);
   const handleUpload = async () => {
     if (images.length === 0 || !title.trim()) return;
-
     setUploading(true);
     setProgress(0);
-
-    // 업로드 진행 상황 시뮬레이션
-    for (let i = 0; i <= 100; i += 10) {
-      setProgress(i);
-      await new Promise((resolve) => setTimeout(resolve, 200));
-    }
-
-    setUploading(false);
-    alert(
-      `이미지가 성공적으로 업로드되었습니다.\n제목: ${title}\nc: ${place}\n업로드된 이미지 개수: ${images.length}`,
-    );
-
-    // 상태 초기화
-    setImages([]);
-    setTitle("");
-    setPlace("");
+    uploadEvent({
+      images: images,
+      postData: {
+        portfolioId: item?.portfolioId,
+        url: [],
+        title: title,
+        description: place,
+        //todo: date 형식 수정해야함
+        date: "2025-02-28T10:54:48.094Z",
+      },
+      isEdit,
+    });
   };
+  useEffect(() => {
+    if (item) {
+      setTitle(item?.title);
+      setPlace(item?.description);
+      setDate(item?.date);
+    }
+  }, [item]);
+
   return (
     <div>
       {/* 제목 및 설명 입력 영역 */}
@@ -98,4 +106,4 @@ function EventsUploadForm({ images, setImages }: ImageUploaderProps) {
   );
 }
 
-export default EventsUploadForm;
+export default ManageUploadForm;

@@ -7,7 +7,7 @@ interface ImageFile extends File {
 }
 
 // 이미지 상태를 관리하는 커스텀 훅
-export function useImageUploader(isEvents: boolean = false) {
+export function useManagePrevImg(isEvents: boolean = false) {
   const [images, setImages] = useState<ImageFile[]>([]);
 
   // 이미지 추가
@@ -23,6 +23,20 @@ export function useImageUploader(isEvents: boolean = false) {
     }
 
     setImages((prev) => [...prev, ...newImages]);
+  };
+  // 이미지 추가
+  const partnerAddImages = (files: File[]) => {
+    const newImages = files.map((file) =>
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      }),
+    );
+    if (!isEvents && images.length > 0) {
+      setImages(newImages);
+      return;
+    }
+
+    setImages(newImages);
   };
 
   // 이미지 삭제
@@ -47,8 +61,8 @@ export function useImageUploader(isEvents: boolean = false) {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (active.id !== over?.id) {
-      const oldIndex = images.findIndex((img) => img.name === active.id);
-      const newIndex = images.findIndex((img) => img.name === over?.id);
+      const oldIndex = images.findIndex((img) => img.preview === active.id);
+      const newIndex = images.findIndex((img) => img.preview === over?.id);
       setImages((prevImages) => arrayMove(prevImages, oldIndex, newIndex));
     }
   };
@@ -64,6 +78,13 @@ export function useImageUploader(isEvents: boolean = false) {
       addImages(files);
     }
   };
+  // 파트너 파일 변경 이벤트 처리
+  const handlePartnerFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (file) {
+      partnerAddImages([file]); // 한 개의 파일만 전달
+    }
+  };
 
   return {
     images,
@@ -74,5 +95,6 @@ export function useImageUploader(isEvents: boolean = false) {
     handleDragEnd,
     handleDragOver,
     handleFileChange,
+    handlePartnerFileChange,
   };
 }

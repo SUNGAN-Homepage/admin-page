@@ -1,4 +1,3 @@
-import SideMenu from "../common/SideMenu.tsx";
 import {
   Box,
   Button,
@@ -9,11 +8,57 @@ import {
   Typography,
 } from "@mui/material";
 import ButtonComponent from "../common/ButtonComponent.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { client } from "../../api/api.tsx";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import Loading from "../common/Loading/Loading.tsx";
+import SideMenu from "../common/SideMenu.tsx";
 
 function Email() {
   const [isEdit, setIsEdit] = useState(false);
-  const [email, setEmail] = useState("contact@example.com");
+  const [email, setEmail] = useState<string>("");
+  const fetchData = async () => {
+    const { data } = await client.get(
+      `/api/v1/users?userId=${localStorage.getItem("userId")}`,
+    );
+    return data;
+  };
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["email"],
+    queryFn: fetchData,
+  });
+  if (isError) {
+    alert("오류가 발생했습니다.");
+  }
+  useEffect(() => {
+    setEmail(data?.email);
+  }, [data]);
+
+  const putEmailData = async () => {
+    return await client.put("/api/v1/users/email", {
+      email,
+    });
+  };
+
+  const mutation = useMutation({
+    mutationFn: putEmailData,
+
+    onSuccess() {
+      alert("성공적으로 email이 수정되었습니다.");
+    },
+    onError(error) {
+      console.error(error);
+      alert("에러가 발생했습니다.");
+    },
+  });
+  const handleSubmit = () => {
+    if (isEdit) {
+      mutation.mutate();
+      setIsEdit(false);
+    } else {
+      setIsEdit(true);
+    }
+  };
   return (
     <SideMenu>
       <Typography variant="h4" sx={{ fontWeight: 600, marginBottom: 4 }}>
@@ -56,6 +101,7 @@ function Email() {
                     borderColor: "#e4e4e7",
                   }}
                   onClick={() => {
+                    setEmail(data?.email);
                     setIsEdit(false);
                   }}
                 >
@@ -63,16 +109,14 @@ function Email() {
                 </Button>
               )}
               {/* 수정 버튼 */}
-              <ButtonComponent
-                size={"large"}
-                onClick={() => setIsEdit(!isEdit)}
-              >
+              <ButtonComponent size={"large"} onClick={() => handleSubmit()}>
                 {isEdit ? "저장" : "수정"}
               </ButtonComponent>
             </Box>
           </CardContent>
         </Box>
       </Card>
+      {isLoading && <Loading />}
     </SideMenu>
   );
 }
