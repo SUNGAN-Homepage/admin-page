@@ -36,7 +36,6 @@ function ManageUploadComponent({ item, isEdit }: EventsUploadFormProps) {
       setImages(imageFiles);
     }
   }, [item]);
-  console.log("아악", item);
   return (
     <ImageUploader
       images={images}

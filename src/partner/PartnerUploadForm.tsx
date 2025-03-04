@@ -14,7 +14,7 @@ interface EventsUploadFormProps {
   };
   isEdit?: boolean;
 }
-function ManageUploadForm({ item, image, isEdit }: EventsUploadFormProps) {
+function PartnerUploadForm({ item, image, isEdit }: EventsUploadFormProps) {
   const [address, setAddress] = useState("");
   const [name, setName] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -92,4 +92,4 @@ function ManageUploadForm({ item, image, isEdit }: EventsUploadFormProps) {
   );
 }
 
-export default ManageUploadForm;
+export default PartnerUploadForm;

@@ -16,10 +16,9 @@ function Login() {
   const navigate = useNavigate();
   const { mutate, status } = useMutation({
     mutationFn: loginRequest, // 로그인 요청 함수
-    onSuccess: (data) => {
+    onSuccess: () => {
       // 로그인 성공 시
       localStorage.setItem("userId", email);
-      localStorage.setItem("token", data.token); // 토큰을 로컬 스토리지에 저장
       navigate("/admin/events"); // 로그인 후 이동할 페이지
     },
     onError: (error) => {

@@ -3,7 +3,10 @@ import { Box, LinearProgress, TextField } from "@mui/material";
 import ButtonComponent from "../../ButtonComponent.tsx";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useUpload } from "../../../../hooks/useUpload.tsx";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "./ManageUploadForm.css";
+import { ko } from "date-fns/locale";
 interface EventsUploadFormProps {
   images: File[];
   item?: {
@@ -11,24 +14,28 @@ interface EventsUploadFormProps {
     url: string[];
     title: string;
     description: string;
-    date: string;
+    date: string; // 서버에서 date는 string
   };
   isEdit?: boolean;
 }
+
 function ManageUploadForm({ item, images, isEdit }: EventsUploadFormProps) {
-  const [title, setTitle] = useState("");
-  const [place, setPlace] = useState("");
-  const [date, setDate] = useState("");
-  const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [title, setTitle] = useState<string>("");
+  const [place, setPlace] = useState<string>("");
+  const [date, setDate] = useState<Date | null>(null); // Date or null
+  const [uploading, setUploading] = useState<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
   const { uploadEvent } = useUpload();
-  console.log(title);
+
   // 업로드 버튼 클릭 시 업로드 시뮬레이션 후 초기화
-  console.log("image", images[0]);
   const handleUpload = async () => {
     if (images.length === 0 || !title.trim()) return;
     setUploading(true);
     setProgress(0);
+
+    // DatePicker에서 선택된 날짜를 ISO 형식의 문자열로 변환
+    const formattedDate = date ? date.toISOString() : "";
+
     uploadEvent({
       images: images,
       postData: {
@@ -36,17 +43,18 @@ function ManageUploadForm({ item, images, isEdit }: EventsUploadFormProps) {
         url: [],
         title: title,
         description: place,
-        //todo: date 형식 수정해야함
-        date: "2025-02-28T10:54:48.094Z",
+        date: formattedDate, // Ensure it's a string when sending to backend
       },
       isEdit,
     });
   };
+
   useEffect(() => {
     if (item) {
-      setTitle(item?.title);
-      setPlace(item?.description);
-      setDate(item?.date);
+      setTitle(item.title);
+      setPlace(item.description);
+      // Convert string date from item to Date object
+      setDate(item.date ? new Date(item.date) : null);
     }
   }, [item]);
 
@@ -72,14 +80,28 @@ function ManageUploadForm({ item, images, isEdit }: EventsUploadFormProps) {
           placeholder="장소"
           sx={{ marginTop: 2 }}
         />
-        <TextField
-          multiline
-          label="촬영 일시"
-          fullWidth
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          placeholder="촬영 일시"
-          sx={{ marginTop: 2 }}
+        <DatePicker
+          locale={ko}
+          selected={date}
+          onChange={(newDate: Date | null) => setDate(newDate)} // Handle Date | null correctly
+          dateFormat="yyyy-MM-dd"
+          customInput={
+            <TextField
+              label="촬영 일시"
+              fullWidth
+              placeholder="촬영 일시"
+              sx={{
+                marginTop: 2,
+                "& .MuiInputBase-root": {
+                  borderRadius: "4px",
+                  // padding: "12px",
+                },
+                "& .MuiFormLabel-root": {
+                  fontSize: "1rem",
+                },
+              }}
+            />
+          }
         />
       </Box>
 
