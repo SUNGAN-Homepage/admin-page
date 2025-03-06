@@ -46,7 +46,7 @@ export const uploadPartner = async ({
       url: newUrl,
     });
   } else {
-    return client.post(`/api/v1/partner`, { ...postData, newUrl });
+    return client.post(`/api/v1/partner`, { ...postData, url: newUrl });
   }
 };
 
