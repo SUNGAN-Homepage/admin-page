@@ -25,3 +25,12 @@ client.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
+export const login = axios.create({
+  baseURL: import.meta.env.VITE_APP_API_URL, // 동적으로 API URL 설정
+  headers: {
+    "ngrok-skip-browser-warning": true,
+    "Content-Type": "application/json", // 모든 요청에 기본 content-type 설정
+  },
+  withCredentials: true, // 쿠키를 자동으로 포함하여 요청 (cross-origin에서 사용)
+});

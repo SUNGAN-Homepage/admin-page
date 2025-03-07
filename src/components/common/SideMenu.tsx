@@ -7,6 +7,7 @@ import FilterIcon from "@mui/icons-material/Filter";
 import EmailIcon from "@mui/icons-material/Email";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HandshakeIcon from "@mui/icons-material/Handshake";
+import { client } from "../../api/api.tsx";
 interface SettingsProps {
   children: ReactNode; // children의 타입을 명시적으로 정의
 }
@@ -14,6 +15,16 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
   const { pathname } = useLocation(); // URL에서 `type` 가져오기
   const navigate = useNavigate();
 
+  const handleLogout = async () => {
+    try {
+      const data = await client.get("/api/v1/users/logout");
+      alert(data);
+      navigate("/admin");
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
   return (
     <Box>
       {/* 왼쪽 사이드 메뉴 (Drawer) */}
@@ -97,7 +108,7 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
             marginX: 1,
             border: "1px solid #e4e4e7",
           }}
-          onClick={() => navigate("/admin")}
+          onClick={handleLogout}
         >
           <LogoutIcon />
           로그아웃
