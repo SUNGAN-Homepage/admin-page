@@ -11,7 +11,7 @@ function App() {
     <Router>
       <IsActiveIdxProvider>
         <Routes>
-          <Route path="/admin" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/admin/events" element={<Event />} />
             <Route path="/admin/profile" element={<Profile />} />
