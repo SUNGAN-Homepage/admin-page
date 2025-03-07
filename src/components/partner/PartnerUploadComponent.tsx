@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useManagePrevImg } from "../hooks/useManagePrevImg.tsx";
-import { ImageUploader } from "../components/common/uploadManage/imageUploader/ImageUploader.tsx";
+import { useManagePrevImg } from "../../hooks/useManagePrevImg.tsx";
+import { ImageUploader } from "../common/uploadManage/imageUploader/ImageUploader.tsx";
 import PartnerUploadForm from "./PartnerUploadForm.tsx";
 
 interface PartnerUploadComponent {

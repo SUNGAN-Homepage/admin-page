@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Box, LinearProgress, TextField } from "@mui/material";
-import ButtonComponent from "../components/common/ButtonComponent.tsx";
+import ButtonComponent from "../common/ButtonComponent.tsx";
 import UploadIcon from "@mui/icons-material/Upload";
-import { useUploadPartner } from "../hooks/useUploadPartner.tsx";
+import { useUploadPartner } from "../../hooks/useUploadPartner.tsx";
 
 interface EventsUploadFormProps {
   image: File | undefined;

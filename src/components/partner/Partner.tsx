@@ -1,7 +1,7 @@
-import AddManageComponent from "../components/common/uploadManage/ManageUploader/AddManageComponent.tsx";
-import SideMenu from "../components/common/SideMenu.tsx";
-import Loading from "../components/common/Loading/Loading.tsx";
-import { useUpload } from "../hooks/useUpload.tsx";
+import AddManageComponent from "../common/uploadManage/ManageUploader/AddManageComponent.tsx";
+import SideMenu from "../common/SideMenu.tsx";
+import Loading from "../common/Loading/Loading.tsx";
+import { useUpload } from "../../hooks/useUpload.tsx";
 import PartnerUploadComponent from "./PartnerUploadComponent.tsx";
 import PartnerList from "./PartnerList.tsx";
 

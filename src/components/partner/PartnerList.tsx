@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import ManageItem from "../components/common/uploadManage/ManageList/ManageItem.tsx";
-import { useUploadPartner } from "../hooks/useUploadPartner.tsx";
+import ManageItem from "../common/uploadManage/ManageList/ManageItem.tsx";
+import { useUploadPartner } from "../../hooks/useUploadPartner.tsx";
 import PartnerUploadComponent from "./PartnerUploadComponent.tsx";
 
 interface Item {
