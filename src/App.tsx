@@ -8,7 +8,7 @@ import Partner from "./components/partner/Partner.tsx";
 import ProtectedRoute from "./components/common/ProtectedRoute/ProtectedRoute.tsx";
 function App() {
   return (
-    <Router>
+    <Router basename="/admin">
       <IsActiveIdxProvider>
         <Routes>
           <Route path="/" element={<Login />} />
