@@ -14,9 +14,6 @@ export const client = axios.create({
 client.interceptors.request.use(
   (config) => {
     // 세션 스토리지에서 토큰 가져오기
-
-    const token = sessionStorage.getItem("token");
-    console.log(token);
     return config;
   },
   (error) => {
