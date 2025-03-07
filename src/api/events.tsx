@@ -2,7 +2,6 @@ import { client } from "./api";
 
 // 이벤트 목록 불러오기
 export const fetchEvents = async (pathname: string) => {
-  console.log("pathname", pathname);
   const apiUrl =
     pathname === "/admin/events"
       ? `/api/v1/portfolio?type=event`

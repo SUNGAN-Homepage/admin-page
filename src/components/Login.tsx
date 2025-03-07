@@ -16,11 +16,10 @@ function Login() {
   const navigate = useNavigate();
   const { mutate, status } = useMutation({
     mutationFn: loginRequest, // 로그인 요청 함수
-    onSuccess: (data) => {
+    onSuccess: () => {
       // 로그인 성공 시
-      console.log(data);
       localStorage.setItem("userId", email);
-      navigate("/admin/events"); // 로그인 후 이동할 페이지
+      navigate("/events"); // 로그인 후 이동할 페이지
     },
     onError: (error) => {
       // 로그인 실패 시

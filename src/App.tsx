@@ -9,15 +9,15 @@ import ProtectedRoute from "./components/common/ProtectedRoute/ProtectedRoute.ts
 
 function App() {
   return (
-    <Router>
+    <Router basename="/admin/">
       <IsActiveIdxProvider>
         <Routes>
-          <Route path="/admin" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/admin/events" element={<Event />} />
-            <Route path="/admin/profile" element={<Profile />} />
-            <Route path="/admin/partner" element={<Partner />} />
-            <Route path="/admin/email" element={<Email />} />
+            <Route path="events" element={<Event />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="partner" element={<Partner />} />
+            <Route path="email" element={<Email />} />
           </Route>
         </Routes>
       </IsActiveIdxProvider>

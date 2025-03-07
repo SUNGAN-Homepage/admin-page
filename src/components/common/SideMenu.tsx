@@ -8,6 +8,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import { client } from "../../api/api.tsx";
+
 interface SettingsProps {
   children: ReactNode; // children의 타입을 명시적으로 정의
 }
@@ -17,12 +18,11 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
 
   const handleLogout = async () => {
     try {
-      const data = await client.get("/api/v1/users/logout");
-      alert(data);
-      navigate("/admin");
+      await client.get("/api/v1/users/logout");
+      navigate("/");
     } catch (error) {
       console.error(error);
-      alert(error);
+      alert("오류 발생");
     }
   };
   return (
@@ -50,11 +50,10 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
           <Box sx={{ marginTop: 2 }}>
             <MenuItem
               onClick={() => {
-                navigate("/admin/events");
+                navigate("/events");
               }}
               sx={{
-                backgroundColor:
-                  pathname === "/admin/events" ? "#b5b5b5" : "none",
+                backgroundColor: pathname === "/events" ? "#b5b5b5" : "none",
               }}
             >
               <FilterIcon sx={{ marginRight: 1 }} />
@@ -62,11 +61,10 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/admin/profile");
+                navigate("/profile");
               }}
               sx={{
-                backgroundColor:
-                  pathname === "/admin/profile" ? "#b5b5b5" : "none",
+                backgroundColor: pathname === "/profile" ? "#b5b5b5" : "none",
               }}
             >
               <FilterIcon sx={{ marginRight: 1 }} />
@@ -75,11 +73,10 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
 
             <MenuItem
               onClick={() => {
-                navigate("/admin/partner");
+                navigate("/partner");
               }}
               sx={{
-                backgroundColor:
-                  pathname === "/admin/partner" ? "#b5b5b5" : "none",
+                backgroundColor: pathname === "/partner" ? "#b5b5b5" : "none",
               }}
             >
               <HandshakeIcon sx={{ marginRight: 1 }} />
@@ -87,11 +84,10 @@ const SideMenu: React.FC<SettingsProps> = ({ children }) => {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/admin/email");
+                navigate("/email");
               }}
               sx={{
-                backgroundColor:
-                  pathname === "/admin/email" ? "#b5b5b5" : "none",
+                backgroundColor: pathname === "/email" ? "#b5b5b5" : "none",
               }}
             >
               <EmailIcon sx={{ marginRight: 1 }} />

@@ -25,8 +25,6 @@ function PartnerUploadForm({ item, image, isEdit }: EventsUploadFormProps) {
     if (!image || !name.trim()) return;
     setUploading(true);
     setProgress(0);
-    console.log("수정되어올라가는 이미지", image);
-    console.log(item);
     uploadPartner({
       image: image,
       postData: {

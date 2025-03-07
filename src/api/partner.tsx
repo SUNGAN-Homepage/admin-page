@@ -35,8 +35,6 @@ export const uploadPartner = async ({
     newUrl = image.preview;
   }
 
-  console.log("postData:", newUrl);
-  console.log("postData2", postData);
   // 이벤트 업로드 또는 수정 요청
   if (isEdit) {
     return client.put(`/api/v1/partner`, {
