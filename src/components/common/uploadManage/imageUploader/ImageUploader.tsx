@@ -2,13 +2,13 @@ import React, { ChangeEvent, ReactNode } from "react";
 import { Box, Typography } from "@mui/material";
 import UploadIcon from "@mui/icons-material/Upload";
 import {
-  DndContext,
   closestCenter,
-  useSensor,
+  DndContext,
+  DragEndEvent,
   KeyboardSensor,
   MouseSensor,
+  useSensor,
   useSensors,
-  DragEndEvent,
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 
@@ -82,10 +82,7 @@ export function ImageUploader({
                   id="dropzone-file"
                   type="file"
                   accept="image/*"
-                  multiple={
-                    pathname === "/admin/events" ||
-                    pathname === "/admin/profile"
-                  }
+                  multiple={pathname === "/events" || pathname === "/profile"}
                   onChange={handleFileChange}
                   style={{ display: "none" }}
                 />

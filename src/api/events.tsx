@@ -3,7 +3,7 @@ import { client } from "./api";
 // 이벤트 목록 불러오기
 export const fetchEvents = async (pathname: string) => {
   const apiUrl =
-    pathname === "/admin/events"
+    pathname === "/events"
       ? `/api/v1/portfolio?type=event`
       : `/api/v1/portfolio?type=profile`;
   const { data } = await client.get(apiUrl);
@@ -30,7 +30,7 @@ export const uploadEvent = async ({
 }) => {
   const uploadPromises = images.map((image) => {
     const apiUrl =
-      pathname === "/admin/events"
+      pathname === "/events"
         ? `/api/v1/image/upload/event`
         : `/api/v1/image/upload/profile`;
     if (image instanceof File) {
@@ -50,9 +50,9 @@ export const uploadEvent = async ({
   // 이벤트 업로드 또는 수정 요청
   if (isEdit) {
     return client.put(`/api/v1/portfolio`, { ...postData, url: urls });
-  } else if (pathname === "/admin/events") {
+  } else if (pathname === "/events") {
     return client.post(`/api/v1/portfolio/event`, { ...postData, url: urls });
-  } else if (pathname === "/admin/profile") {
+  } else if (pathname === "/profile") {
     return client.post(`/api/v1/portfolio/profile`, { ...postData, url: urls });
   }
 };

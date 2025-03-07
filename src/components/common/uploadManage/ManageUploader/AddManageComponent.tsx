@@ -27,14 +27,14 @@ function AddManageComponent({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Typography variant="h4" sx={{ fontWeight: 600, marginBottom: 4 }}>
-        {`${pathname === "/admin/events" ? "행사" : pathname === "/admin/profile" ? "프로필" : "파트너"} 이미지 수정 관리`}
+        {`${pathname === "/events" ? "행사" : pathname === "/profile" ? "프로필" : "파트너"} 이미지 수정 관리`}
       </Typography>
 
       <Card sx={{ marginBottom: 4, padding: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <CardHeader
-            title={`${pathname === "/admin/events" ? "행사" : pathname === "/admin/profile" ? "프로필" : "파트너"} 이미지 업로드`}
-            subheader={`${pathname === "/admin/events" ? "행사" : pathname === "/admin/profile" ? "프로필" : "파트너"}에 사용될 이미지와 정보를 업로드하세요.`}
+            title={`${pathname === "/events" ? "행사" : pathname === "/profile" ? "프로필" : "파트너"} 이미지 업로드`}
+            subheader={`${pathname === "/events" ? "행사" : pathname === "/profile" ? "프로필" : "파트너"}에 사용될 이미지와 정보를 업로드하세요.`}
           />
           {isActiveIdx === -1 && (
             <ButtonComponent
@@ -52,7 +52,7 @@ function AddManageComponent({ children }: { children: React.ReactNode }) {
               handleOpen();
             }}
           >
-            {`새 ${pathname === "/admin/events" ? "행사" : pathname === "/admin/profile" ? "프로필" : "파트너"} 항목 추가`}
+            {`새 ${pathname === "/events" ? "행사" : pathname === "/profile" ? "프로필" : "파트너"} 항목 추가`}
           </ButtonComponent>
         )}
         {isActiveIdx === -1 && <CardContent>{children}</CardContent>}
