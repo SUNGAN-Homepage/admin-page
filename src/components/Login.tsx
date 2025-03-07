@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextField, Box, Typography, Container, Grid } from "@mui/material";
+import { Box, Container, Grid, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/SUNGAN.jpg";
 import ButtonComponent from "./common/ButtonComponent.tsx";
@@ -16,8 +16,9 @@ function Login() {
   const navigate = useNavigate();
   const { mutate, status } = useMutation({
     mutationFn: loginRequest, // 로그인 요청 함수
-    onSuccess: () => {
+    onSuccess: (data) => {
       // 로그인 성공 시
+      console.log(data);
       localStorage.setItem("userId", email);
       navigate("/admin/events"); // 로그인 후 이동할 페이지
     },

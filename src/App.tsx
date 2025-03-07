@@ -6,12 +6,13 @@ import Event from "./components/event/Event.tsx";
 import Profile from "./components/profile/Profile.tsx";
 import Partner from "./components/partner/Partner.tsx";
 import ProtectedRoute from "./components/common/ProtectedRoute/ProtectedRoute.tsx";
+
 function App() {
   return (
-    <Router basename="/admin">
+    <Router>
       <IsActiveIdxProvider>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/admin" element={<Login />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/admin/events" element={<Event />} />
             <Route path="/admin/profile" element={<Profile />} />

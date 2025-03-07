@@ -14,23 +14,12 @@ export const client = axios.create({
 client.interceptors.request.use(
   (config) => {
     // 세션 스토리지에서 토큰 가져오기
-    const token = sessionStorage.getItem("token");
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`; // 세션에 저장된 토큰을 헤더에 추가
-    }
+    const token = sessionStorage.getItem("token");
+    console.log(token);
     return config;
   },
   (error) => {
     return Promise.reject(error);
   },
 );
-
-export const login = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_URL, // 동적으로 API URL 설정
-  headers: {
-    "ngrok-skip-browser-warning": true,
-    "Content-Type": "application/json", // 모든 요청에 기본 content-type 설정
-  },
-  withCredentials: true, // 쿠키를 자동으로 포함하여 요청 (cross-origin에서 사용)
-});
