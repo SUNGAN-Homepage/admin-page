@@ -11,9 +11,11 @@ function ManageImg() {
   const pathname = useLocation();
   return (
     <SideMenu>
+      {/*추가 부분*/}
       <AddManageComponent>
         <ManageUploadComponent key={`${pathname}`} />
       </AddManageComponent>
+      {/*List*/}
       <ManageList />
       {(isLoading || isUploading) && <Loading />}
     </SideMenu>

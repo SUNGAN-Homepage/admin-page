@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./ManageUploadForm.css";
 import { ko } from "date-fns/locale";
+
 interface EventsUploadFormProps {
   images: File[];
   item?: {
@@ -27,7 +28,7 @@ function ManageUploadForm({ item, images, isEdit }: EventsUploadFormProps) {
   const [progress, setProgress] = useState<number>(0);
   const { uploadEvent } = useUpload();
 
-  // 업로드 버튼 클릭 시 업로드 시뮬레이션 후 초기화
+  // 업로드 버튼 클릭 시 업로드 후 초기화
   const handleUpload = async () => {
     if (images.length === 0 || !title.trim()) return;
     setUploading(true);
@@ -48,7 +49,7 @@ function ManageUploadForm({ item, images, isEdit }: EventsUploadFormProps) {
       isEdit,
     });
   };
-
+  // 수정일때 받아온 데이터를 넣음
   useEffect(() => {
     if (item) {
       setTitle(item.title);
@@ -115,7 +116,13 @@ function ManageUploadForm({ item, images, isEdit }: EventsUploadFormProps) {
 
       <ButtonComponent
         onClick={handleUpload}
-        disabled={images.length === 0 || !title.trim() || uploading}
+        disabled={
+          images.length === 0 ||
+          !title.trim() ||
+          uploading ||
+          !place.trim() ||
+          !date
+        }
         variant="contained"
         color="primary"
         fullWidth
