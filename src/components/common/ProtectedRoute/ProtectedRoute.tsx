@@ -15,6 +15,7 @@ const ProtectedRoute = () => {
         }
       } catch (error) {
         console.error("세션이 만료되었거나 로그인되지 않음:", error);
+        alert("로그인이 필요한 페이지입니다.");
         setIsAuthenticated(false);
       }
     };
@@ -31,8 +32,7 @@ const ProtectedRoute = () => {
   }
 
   if (!isAuthenticated) {
-    alert("로그인이 필요한 페이지입니다.");
-    return <Navigate to="/admin" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return <Outlet />;
